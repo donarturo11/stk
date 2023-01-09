@@ -132,6 +132,9 @@ endif()
 if(BUILD_SHARED)
     add_library(stk_SHARED SHARED ${STK_SRC})
     set_target_properties(stk_SHARED PROPERTIES OUTPUT_NAME stk) # rename the shared library name
+    if(${CMAKE_SYSTEM_NAME} STREQUAL Windows)
+      set_target_properties(stk_SHARED PROPERTIES SUFFIX dll) # rename the shared library name
+    endif()
     target_include_directories(stk_SHARED PRIVATE include PUBLIC $<INSTALL_INTERFACE:include>)
     set_target_properties(stk_SHARED PROPERTIES PUBLIC_HEADER "${LIBSTK_HEADERS}")
     list(APPEND STK_TARGETS stk_SHARED)
